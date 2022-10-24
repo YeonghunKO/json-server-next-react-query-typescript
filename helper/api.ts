@@ -1,24 +1,33 @@
-import axios from 'axios';
-import { ITodo } from '../types/Todo';
+import { ITodo, Optional } from './../types/Todo';
+import axios, { AxiosResponse } from 'axios';
 import { request } from '../utils/axios-utils';
 
-export const addTodo = async (newTodo: ITodo) => {
-  const { data } = await request({ method: 'post', data: newTodo });
+export const addTodo = async (newTodo: Optional<ITodo>) => {
+  const { data } = await request<AxiosResponse<ITodo[]>>({
+    method: 'post',
+    data: newTodo,
+  });
 
   return data;
 };
 
 export const getTodos = async () => {
-  const { data } = await request({ method: 'get' });
+  const { data } = await request<AxiosResponse<ITodo[]>>({ method: 'get' });
 
   return data;
 };
 
-export const editTodo = async ({ id, todo }: { id: number; todo: string }) => {
-  const { data } = await request({
+export const editTodo = async ({
+  id,
+  ...rest
+}: {
+  id: number;
+  [P: string]: any;
+}) => {
+  const { data } = await request<AxiosResponse<ITodo[]>>({
     method: 'patch',
     url: `/${id}`,
-    data: { id, todo },
+    data: { ...rest },
   });
 
   return data;

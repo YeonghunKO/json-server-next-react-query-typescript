@@ -1,22 +1,17 @@
-import { Paper, TextField } from '@material-ui/core';
-import { useTodoEditMutationQuery } from '../../hooks/useEditTodoOptimisticMutation';
+import { TextField } from '@material-ui/core';
+import { UseMutateFunction } from 'react-query';
 import useInputState from '../../hooks/useInputState';
+import { ITodo } from '../../types/Todo';
 
 import styles from './editForm.module.css';
 
-interface IEditTodoFormProps {
-  id: number;
-  todo: string;
+interface IEditTodoFormProps extends ITodo {
   resetIsEdit: Function;
+  mutate: UseMutateFunction<ITodo[], any, any, any>;
 }
 
-function EditTodoForm({
-  id,
-  todo,
-  resetIsEdit,
-}: IEditTodoFormProps) {
+function EditTodoForm({ id, todo, resetIsEdit, mutate }: IEditTodoFormProps) {
   const [inputVal, setInputVal, resetInputVal] = useInputState(todo);
-  const { mutate } = useTodoEditMutationQuery();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

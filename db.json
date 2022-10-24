@@ -1,13 +1,13 @@
 {
   "todos": [
     {
+      "isCompleted": false,
       "id": 1,
-      "isCompleted": true,
-      "todo": "master react-query7"
+      "todo": "master react-query8"
     },
     {
-      "isCompleted": false,
-      "todo": "과연바뀔까나? 물론!",
+      "isCompleted": true,
+      "todo": "과연바뀔까나? 물론!!!!",
       "id": 2
     }
   ]

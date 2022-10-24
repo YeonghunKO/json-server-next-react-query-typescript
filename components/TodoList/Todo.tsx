@@ -13,8 +13,11 @@ import { memo } from 'react';
 import styles from '../TodoList/todo.module.css';
 
 import { ITodo } from '../../types/Todo';
+import { useTodoEditMutationQuery } from '../../hooks/useEditTodoOptimisticMutation';
 
 function Todo({ id, isCompleted, todo }: ITodo) {
+  const { mutate } = useTodoEditMutationQuery();
+
   const [isEdit, setIsEdit, resetIsEdit] = useToggleState(false);
   const handleEdit = () => {
     setIsEdit();
@@ -23,8 +26,8 @@ function Todo({ id, isCompleted, todo }: ITodo) {
   if (isEdit) {
     return (
       <EditTodoForm
+        mutate={mutate}
         resetIsEdit={resetIsEdit}
-        isCompleted={isCompleted}
         todo={todo}
         id={id}
       />
@@ -39,7 +42,10 @@ function Todo({ id, isCompleted, todo }: ITodo) {
           <Checkbox
             tabIndex={-1}
             checked={isCompleted}
-            onClick={async () => {}}
+            onClick={async () => {
+              // editTodo에서 isCompleted,id,todo를 옵셔널하게 받을 수 있는 방법을 생각해봐라
+              mutate({ id, isCompleted: !isCompleted });
+            }}
           />
           <span>{todo}</span>
         </div>

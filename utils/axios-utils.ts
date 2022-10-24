@@ -4,7 +4,9 @@ import { ITodo } from '../types/Todo';
 
 const client = axios.create({ baseURL: process.env.NEXT_PUBLIC_BASE_URL });
 
-export const request = async ({ ...options }) => {
+export const request = async <T extends AxiosResponse>({
+  ...options
+}): Promise<T> => {
   client.defaults.headers.common.Authorization = `Bearer token`;
   const onSuccess = (reponse: AxiosResponse<ITodo[]> | any) => reponse;
   const onError = (error: AxiosError) => {

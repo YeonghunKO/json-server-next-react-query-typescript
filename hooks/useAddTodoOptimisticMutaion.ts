@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { addTodo } from '../helper/api';
-import { ITodo } from '../types/Todo';
+import { ITodo, Optional } from '../types/Todo';
 import { queryKeys } from '../types/TodoQuery';
 // : UseMutationResult<ITodo, AxiosError>
 // const addTodo = 'addtodo';
@@ -11,7 +11,7 @@ function useTodoPostMutationQuery() {
   //   console.log();
 
   return useMutation(addTodo, {
-    onMutate: async (newTodo: ITodo) => {
+    onMutate: async (newTodo: Optional<ITodo>) => {
       await queryClient.cancelQueries(queryKeys.todos);
       const previouseTodoData = queryClient.getQueryData(queryKeys.todos);
       queryClient.setQueryData<ITodo[]>(queryKeys.todos, oldQueryData => {
