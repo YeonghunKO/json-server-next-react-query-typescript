@@ -32,3 +32,7 @@ export const editTodo = async ({
 
   return data;
 };
+
+export const deleteTodo = async (id: number) => {
+  await request({ method: 'delete', url: `/${id}` });
+};

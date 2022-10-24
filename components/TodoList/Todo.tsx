@@ -14,9 +14,13 @@ import styles from '../TodoList/todo.module.css';
 
 import { ITodo } from '../../types/Todo';
 import { useTodoEditMutationQuery } from '../../hooks/useEditTodoOptimisticMutation';
+import { useTodoDeleteMutationQuery } from '../../hooks/useDeleteTodoOptimisticMutation';
 
 function Todo({ id, isCompleted, todo }: ITodo) {
-  const { mutate } = useTodoEditMutationQuery();
+  console.log('todo', id);
+
+  const { mutate: mutateEdit } = useTodoEditMutationQuery();
+  const { mutate: deleteEdit } = useTodoDeleteMutationQuery();
 
   const [isEdit, setIsEdit, resetIsEdit] = useToggleState(false);
   const handleEdit = () => {
@@ -26,7 +30,7 @@ function Todo({ id, isCompleted, todo }: ITodo) {
   if (isEdit) {
     return (
       <EditTodoForm
-        mutate={mutate}
+        mutate={mutateEdit}
         resetIsEdit={resetIsEdit}
         todo={todo}
         id={id}
@@ -44,13 +48,18 @@ function Todo({ id, isCompleted, todo }: ITodo) {
             checked={isCompleted}
             onClick={async () => {
               // editTodo에서 isCompleted,id,todo를 옵셔널하게 받을 수 있는 방법을 생각해봐라
-              mutate({ id, isCompleted: !isCompleted });
+              mutateEdit({ id, isCompleted: !isCompleted });
             }}
           />
           <span>{todo}</span>
         </div>
         <div>
-          <IconButton className={styles.deleteBtn} onClick={() => {}}>
+          <IconButton
+            className={styles.deleteBtn}
+            onClick={() => {
+              deleteEdit(id);
+            }}
+          >
             <DeleteIcon />
           </IconButton>
           <IconButton className={styles.editBtn} onClick={handleEdit}>
