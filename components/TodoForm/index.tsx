@@ -7,7 +7,6 @@ import { useTodoPostMutationQuery } from '../../hooks/useAddTodoOptimisticMutaio
 function TodoForm() {
   const [inputVal, setInputVal, reset] = useInputState('');
   const { mutate } = useTodoPostMutationQuery();
-  // console.log('TODOFORM RENDERING');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -17,7 +17,7 @@ import { useTodoEditMutationQuery } from '../../hooks/useEditTodoOptimisticMutat
 import { useTodoDeleteMutationQuery } from '../../hooks/useDeleteTodoOptimisticMutation';
 
 function Todo({ id, isCompleted, todo }: ITodo) {
-  console.log('todo', id);
+  console.log('TODO RENDERING', id);
 
   const { mutate: mutateEdit } = useTodoEditMutationQuery();
   const { mutate: deleteEdit } = useTodoDeleteMutationQuery();

@@ -1,5 +1,5 @@
 import { ITodo, Optional } from './../types/Todo';
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { request } from '../utils/axios-utils';
 
 export const addTodo = async (newTodo: Optional<ITodo>) => {

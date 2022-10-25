@@ -9,6 +9,8 @@ import { request } from '../utils/axios-utils';
 import { AxiosError, AxiosResponse } from 'axios';
 
 function Todo() {
+  console.log('TODO INDEX RENDERING');
+
   return (
     <Paper
       style={{
